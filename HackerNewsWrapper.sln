@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNewsWrapperApi", "HackerNewsWrapperApi\HackerNewsWrapperApi.csproj", "{BCAB9C68-2F5A-431E-98D7-522DC7094D51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCAB9C68-2F5A-431E-98D7-522DC7094D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCAB9C68-2F5A-431E-98D7-522DC7094D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCAB9C68-2F5A-431E-98D7-522DC7094D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCAB9C68-2F5A-431E-98D7-522DC7094D51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
