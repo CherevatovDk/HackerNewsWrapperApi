@@ -1,3 +1,4 @@
+using HackerNewsWrapperApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackerNewsWrapperApi.Controllers;
@@ -7,7 +8,7 @@ namespace HackerNewsWrapperApi.Controllers;
 public class StoriesController : ControllerBase
 {
     [HttpGet("best-stories")]
-    public async Task<ActionResult<IEnumerable<object>>> BestStoriesAsync(int storiesCount)
+    public async Task<ActionResult<IEnumerable<StoryDto>>> BestStoriesAsync(int storiesCount)
     {
         return Ok();
     }
