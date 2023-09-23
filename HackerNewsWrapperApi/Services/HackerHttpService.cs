@@ -1,5 +1,6 @@
 using HackerNewsWrapperApi.Dtos;
 using HackerNewsWrapperApi.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 
 namespace HackerNewsWrapperApi.Services;
@@ -7,21 +8,21 @@ namespace HackerNewsWrapperApi.Services;
 public class HackerHttpService : IHackerHttpService
 {
     private readonly HttpClient _httpClient;
-
-    private readonly CacheService _cacheService;
-
-    public HackerHttpService(HttpClient httpClient)
-    {
-       
-        _httpClient = httpClient;
-       
-
-    }
     
+    private readonly IMemoryCache _cache;
+    
+    public HackerHttpService(HttpClient httpClient, IMemoryCache cache)
+    {
+        _cache = cache;
+        _httpClient = httpClient;
+    }
+
     public async Task<List<int>> GetStorie()
     {
-        var response = await _httpClient.GetFromJsonAsync<List<int>>("https://hacker-news.firebaseio.com/v0/beststories.json ");
-        return response;
+        var response =
+            await _httpClient.GetFromJsonAsync<List<int>>("https://hacker-news.firebaseio.com/v0/beststories.json ");
+        var ids = _cache.Set("id", response, TimeSpan.FromMinutes(5));
+        return ids;
     }
 
   

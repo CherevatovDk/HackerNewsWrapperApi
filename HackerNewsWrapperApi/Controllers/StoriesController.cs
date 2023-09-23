@@ -10,13 +10,13 @@ namespace HackerNewsWrapperApi.Controllers;
 public class StoriesController : ControllerBase
 {
     private readonly IHackerHttpService _hackreHttpService;
-    private readonly ICacheService _cacheService;
+   
     
     
 
-    public StoriesController(IHackerHttpService hackreHttpService, ICacheService cacheService)
+    public StoriesController(IHackerHttpService hackreHttpService)
     {
-        _cacheService = cacheService;
+        
         _hackreHttpService = hackreHttpService;
         
 
@@ -26,7 +26,7 @@ public class StoriesController : ControllerBase
     [HttpGet("best-stories")]
     public async Task<ActionResult<IEnumerable<StoryDto>>> BestStoriesAsync(int storiesCount)
     {
-        await _cacheService.AddInCache();
+        
         return Ok(await _hackreHttpService.GetStorie());
     }
 }

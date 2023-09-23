@@ -1,6 +1,6 @@
 using HackerNewsWrapperApi.Interfaces;
 using HackerNewsWrapperApi.Services;
-using Microsoft.Extensions.Caching.Memory;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
-builder.Services.AddTransient<ICacheService, CacheService>();
-builder.Services.AddTransient<IMemoryCache>();
+
+
+
 
 builder.Services.AddScoped<IHackerHttpService,HackerHttpService>();
 

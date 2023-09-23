@@ -16,7 +16,9 @@ public class StoryDto
     [JsonProperty("time")]
     public DateTime Time { get; set; }
 
-    [JsonProperty("score")] public int Score { get; set; } 
+    [JsonProperty("score")] 
+    public int Score { get; set; } 
 
-    [JsonProperty("commentCount")] public int CommentCount { get; set; } 
+    [JsonProperty("commentCount")] 
+    public int CommentCount { get; set; } 
 }
