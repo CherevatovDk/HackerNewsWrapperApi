@@ -13,8 +13,7 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-      <Folder Include="NewDirectory1\" />
-    </ItemGroup>
+
+
 
 </Project>
