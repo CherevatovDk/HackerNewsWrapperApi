@@ -17,15 +17,12 @@ public class HackerHttpService : IHackerHttpService
         _httpClient = httpClient;
     }
 
-    public async Task<List<int>> GetStorie()
+    public async Task<List<int>> GetStorie(int storiesCount)
     {
         var response =
             await _httpClient.GetFromJsonAsync<List<int>>("https://hacker-news.firebaseio.com/v0/beststories.json ");
         var ids = _cache.Set("id", response, TimeSpan.FromMinutes(5));
         return ids;
     }
-
-  
-
     
 }

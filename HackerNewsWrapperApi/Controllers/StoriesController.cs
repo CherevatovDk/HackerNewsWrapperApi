@@ -26,7 +26,8 @@ public class StoriesController : ControllerBase
     [HttpGet("best-stories")]
     public async Task<ActionResult<IEnumerable<StoryDto>>> BestStoriesAsync(int storiesCount)
     {
+        var bestId = await _hackreHttpService.GetStorie(storiesCount);
         
-        return Ok(await _hackreHttpService.GetStorie());
+        return Ok(bestId);
     }
 }
