@@ -1,4 +1,3 @@
-using HackerNewsWrapperApi.Dtos;
 using HackerNewsWrapperApi.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
