@@ -6,7 +6,9 @@ namespace HackerNewsWrapperApi.Controllers;
 [Route("[controller]")]
 public class StoriesController : ControllerBase
 {
-    
-    
-    
+    [HttpGet("best-stories")]
+    public async Task<ActionResult<IEnumerable<object>>> BestStoriesAsync(int storiesCount)
+    {
+        return Ok();
+    }
 }
