@@ -1,3 +1,4 @@
+using HackerNewsWrapperApi.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackerNewsWrapperApi.Controllers;
@@ -6,10 +7,17 @@ namespace HackerNewsWrapperApi.Controllers;
 [Route("[controller]")]
 public class StoriesController : ControllerBase
 {
-    [HttpGet("best-stories")]
-    public async Task<ActionResult<IEnumerable<object>>> BestStoriesAsync(int storiesCount)
+    private readonly IHackerHttpService _hackerHttpService;
+    public StoriesController(IHackerHttpService hackerHttpService)
     {
-        return Ok();
+        _hackerHttpService = hackerHttpService;
+    }
+
+    [HttpGet("best-stories")]
+    public async Task<ActionResult<List<int>>> BestStoriesAsync(int storiesCount)
+    {
+        var bestIds = await _hackerHttpService.GetStory(storiesCount);
+        return Ok(bestIds);
     }
     
     
