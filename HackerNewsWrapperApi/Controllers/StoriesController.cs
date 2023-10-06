@@ -17,7 +17,7 @@ public class StoriesController : ControllerBase
     [HttpGet("best-stories")]
     public async Task<ActionResult<List<int>>> BestStoriesAsync(int storiesCount)
     {
-        var bestIds = await _hackerHttpService.CacheIdAsync();
+        var bestIds = await _hackerHttpService.GetStoryIdAsync();
         return Ok(bestIds);
     }
     

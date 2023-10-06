@@ -3,7 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace HackerNewsWrapperApi.Services;
 
-public class HackerHttpService: IHackerHttpService
+public class HackerHttpService : IHackerHttpService
 {
     private readonly HttpClient _httpClient;
     private readonly IMemoryCache _cache;
@@ -14,16 +14,15 @@ public class HackerHttpService: IHackerHttpService
         _cache = cache;
     }
 
-    public async Task<List<int>> CacheIdAsync()
-    {
-        var storyId = await GetStoryIdAsync();
-        _cache.Set<List<int>>(Constans.BestId, storyId, TimeSpan.FromMinutes(5));
-        return storyId;
-    }
-
     public async Task<List<int>> GetStoryIdAsync()
     {
+        if (_cache.TryGetValue<List<int>>(Constans.BestId, out var value))
+        {
+            return value ?? new List<int>();
+        }
+
         var response = await _httpClient.GetFromJsonAsync<List<int>>(Constans.Url);
+        _cache.Set(Constans.BestId, response, TimeSpan.FromMinutes(5));
         return response ?? new List<int>();
     }
 }
