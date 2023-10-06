@@ -1,24 +1,17 @@
+using System.Runtime.InteropServices.JavaScript;
 using Newtonsoft.Json;
 
 namespace HackerNewsWrapperApi.Dtos;
 
 public class StoryDto
 {
-    [JsonProperty("title")] 
-    public string Title { get; set; } = "d";
-    
-    [JsonProperty("uri")]
-    public string Uri { get; set; }= "d";
-    
-    [JsonProperty("postedBy")]
-    public string PostedBy { get; set; }= "d";
-    
-    [JsonProperty("time")]
-    public DateTime Time { get; set; }
-
-    [JsonProperty("score")]
-    public int Score { get; set; }
-
-    [JsonProperty("commentCount")]
-    public int CommentCount { get; set; }
+    public string by { get; set; }
+    public int descendants { get; set; }
+    public int id { get; set; }
+    public List<int> kids { get; set; }
+    public int score { get; set; }
+    public long time { get; set; }
+    public string title { get; set; }
+    public string type { get; set; }
+    public string url { get; set; }
 }

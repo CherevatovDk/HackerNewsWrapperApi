@@ -1,7 +1,13 @@
 using HackerNewsWrapperApi.Interface;
 using HackerNewsWrapperApi.Services;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
 
 // Add services to the container.
 builder.Services.AddMemoryCache();
@@ -11,6 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IHackerHttpService,HackerHttpService>();
+
+
 
 var app = builder.Build();
 
