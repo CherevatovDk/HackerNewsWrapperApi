@@ -5,13 +5,13 @@ namespace HackerNewsWrapperApi.Dtos;
 public class StoryDto
 {
     [JsonProperty("title")] 
-    public string Title { get; set; } = "d";
+    public string Title { get; set; } 
     
     [JsonProperty("uri")]
-    public string Uri { get; set; }= "d";
+    public string Uri { get; set; }
     
     [JsonProperty("postedBy")]
-    public string PostedBy { get; set; }= "d";
+    public string PostedBy { get; set; }
     
     [JsonProperty("time")]
     public DateTime Time { get; set; }
