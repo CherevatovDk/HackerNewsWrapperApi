@@ -2,6 +2,10 @@ using HackerNewsWrapperApi.Interfaces;
 using HackerNewsWrapperApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
 
 // Add services to the container.
 

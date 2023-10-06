@@ -7,11 +7,13 @@ public class HackerHttpService : IHackerHttpService
 {
     private readonly HttpClient _httpClient;
     private readonly IMemoryCache _cache;
+    private readonly IConfiguration _configuration;
 
-    public HackerHttpService(HttpClient httpClient, IMemoryCache cache)
+    public HackerHttpService(HttpClient httpClient, IMemoryCache cache, IConfiguration configuration)
     {
         _httpClient = httpClient;
         _cache = cache;
+        _configuration = configuration;
     }
 
     public async Task<List<int>> GetStoryIdAsync()
@@ -21,7 +23,7 @@ public class HackerHttpService : IHackerHttpService
             return value ?? new List<int>();
         }
 
-        var response = await _httpClient.GetFromJsonAsync<List<int>>(Constans.Url);
+        var response = await _httpClient.GetFromJsonAsync<List<int>>(_configuration["MySettings:ApiUrl"]);
         _cache.Set(Constans.BestId, response, TimeSpan.FromMinutes(5));
         return response ?? new List<int>();
     }
