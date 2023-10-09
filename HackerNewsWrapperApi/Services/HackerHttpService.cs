@@ -1,3 +1,4 @@
+using HackerNewsWrapperApi.Dtos;
 using HackerNewsWrapperApi.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -16,7 +17,7 @@ public class HackerHttpService : IHackerHttpService
         _configuration = configuration;
     }
 
-    public async Task<List<int>> GetStoryIdAsync()
+    private async Task<List<int>> GetStoryIdAsync()
     {
         if (_cache.TryGetValue<List<int>>(Constans.BestId, out var value))
         {
@@ -27,4 +28,32 @@ public class HackerHttpService : IHackerHttpService
         _cache.Set(Constans.BestId, response, TimeSpan.FromMinutes(5));
         return response ?? new List<int>();
     }
+
+    private async Task<StoryDto> GetStoryDetailsAsync(int id)
+    {
+        if (_cache.TryGetValue<StoryDto>(id, out var value))
+        {
+            return value ?? new StoryDto();
+        }
+
+        var response =
+            await _httpClient.GetFromJsonAsync<StoryDto>($"{_configuration["MySettings:BestApiUrl"]}{id}.json");
+        _cache.Set(id, response, TimeSpan.FromMinutes(5));
+        return response ?? new StoryDto();
+    }
+
+    public async Task<List<StoryDto>> SortingStoryAsync(int count)
+    {
+        var listValueDetail = new List<StoryDto>();
+        var ids = await GetStoryIdAsync();
+        foreach (var item in ids.Take(count))
+        {
+            var detail = await GetStoryDetailsAsync(item);
+            listValueDetail.Add(detail);
+        }
+
+        return listValueDetail.OrderByDescending(s => s.Score).ToList();
+    }
+    
+    
 }

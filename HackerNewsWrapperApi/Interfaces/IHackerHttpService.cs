@@ -1,6 +1,8 @@
+using HackerNewsWrapperApi.Dtos;
+
 namespace HackerNewsWrapperApi.Interfaces;
 
 public interface IHackerHttpService
 {
-    public Task<List<int>> GetStoryIdAsync();
+    public Task<List<StoryDto>> SortingStoryAsync(int count);
 }
