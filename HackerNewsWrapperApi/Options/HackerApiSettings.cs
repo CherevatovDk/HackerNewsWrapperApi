@@ -6,9 +6,8 @@ public class HackerApiSettings
     public List<Path>? Paths { get; set; }
 }
 
-public class  Path
+public class Path
 {
     public string? Ids { get; set; }
     public string? Item { get; set; }
-    
 }
