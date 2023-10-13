@@ -3,7 +3,7 @@ namespace HackerNewsWrapperApi.Options;
 public class HackerApiSettings
 {
     public string? Url { get; set; }
-    public List<Path>? Paths { get; set; }
+    public Dictionary<string, string>? Paths { get; set; }
 }
 
 public class Path

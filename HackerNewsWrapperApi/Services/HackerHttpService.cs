@@ -30,17 +30,4 @@ public class HackerHttpService : IHackerHttpService
         _cache.Set(Constans.BestIds, response, TimeSpan.FromMinutes(5));
         return response ?? new List<int>();
     }
-
-    public async Task<StoryDto> GetDetailsAsync()
-    {
-        if (_cache.TryGetValue<StoryDto>(Constans.BestIds, out var value))
-        {
-            return value ?? new StoryDto();
-        }
-
-        string itemId = "37825292";
-        var response = await _httpClient.GetFromJsonAsync<StoryDto>($"{_hackerApiSettings.GetItemUrl(itemId)}");
-        _cache.Set(Constans.BestIds, response, TimeSpan.FromMinutes(5));
-        return response ?? new StoryDto();
-    }
 }

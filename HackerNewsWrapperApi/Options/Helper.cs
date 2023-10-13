@@ -2,7 +2,6 @@ namespace HackerNewsWrapperApi.Options;
 
 public static class Helper
 {
-    
     public static string GetIdsUrl(this HackerApiSettings settings)
     {
         if (settings == null || string.IsNullOrEmpty(settings.Url) || settings.Paths == null)
@@ -10,14 +9,12 @@ public static class Helper
             throw new ArgumentNullException("Invalid HackerApiSettings");
         }
 
-        var idsPath = settings.Paths.FirstOrDefault(p => !string.IsNullOrEmpty(p.Ids));
-
-        if (idsPath == null)
+        if (settings.Paths.TryGetValue("Ids", out string? idsPath) && !string.IsNullOrEmpty(idsPath))
         {
             throw new InvalidOperationException("Ids path not found in HackerApiSettings");
         }
 
-        return $"{settings.Url}{idsPath.Ids}";
+        return $"{settings.Url}{idsPath}";
     }
 
     public static string GetItemUrl(this HackerApiSettings settings, string itemId)
@@ -27,16 +24,11 @@ public static class Helper
             throw new ArgumentNullException("Invalid HackerApiSettings");
         }
 
-        var itemPath = settings.Paths.FirstOrDefault(p => !string.IsNullOrEmpty(p.Item));
-
-        if (itemPath == null)
+        if (settings.Paths.TryGetValue("Item", out string? itemPath) && !string.IsNullOrEmpty(itemPath))
         {
             throw new InvalidOperationException("Item path not found in HackerApiSettings");
         }
 
-        return $"{settings.Url}{itemPath.Item}{itemId}.json";
+        return $"{settings.Url}{itemPath}{itemId}.json";
     }
-    
-    
-    
 }

@@ -3,7 +3,8 @@ using HackerNewsWrapperApi.Options;
 using HackerNewsWrapperApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory(
+    )).AddJsonFile("appsettings.json").Build();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -14,7 +15,6 @@ builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient("ApiClient", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration.GetSection("HackerApi:Url").Value!);
-   
     
 });
 builder.Services.AddScoped<IHackerHttpService, HackerHttpService>();

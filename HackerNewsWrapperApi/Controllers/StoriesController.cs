@@ -19,7 +19,6 @@ public class StoriesController:ControllerBase
     [HttpGet("best-stories")]
     public async Task<ActionResult<List<StoryDto>>> BestStoriesAsync(int count)
     {
-        var s = _hackerHttpService.GetDetailsAsync();
-        return  Ok(await _hackerHttpService.GetStoryIdsAsync());
+        return Ok();
     }
 }
