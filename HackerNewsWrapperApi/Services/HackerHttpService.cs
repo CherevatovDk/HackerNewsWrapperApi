@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace HackerNewsWrapperApi.Services;
 
-public class HackerHttpService : IHackerHttpService
+public class HackerHttpService 
 {
     private readonly HttpClient _httpClient;
     private readonly IMemoryCache _cache;

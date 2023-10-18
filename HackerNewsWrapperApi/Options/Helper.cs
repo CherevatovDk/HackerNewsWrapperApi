@@ -9,7 +9,7 @@ public static class Helper
             throw new ArgumentNullException("Invalid HackerApiSettings");
         }
 
-        if (settings.Paths.TryGetValue("Ids", out string? idsPath) && !string.IsNullOrEmpty(idsPath))
+        if (!settings.Paths.TryGetValue("Ids", out string? idsPath) && !string.IsNullOrEmpty(idsPath))
         {
             throw new InvalidOperationException("Ids path not found in HackerApiSettings");
         }
@@ -17,14 +17,14 @@ public static class Helper
         return $"{settings.Url}{idsPath}";
     }
 
-    public static string GetItemUrl(this HackerApiSettings settings, string itemId)
+    public static string GetItemUrl(this HackerApiSettings settings, int itemId)
     {
         if (settings == null || string.IsNullOrEmpty(settings.Url) || settings.Paths == null)
         {
             throw new ArgumentNullException("Invalid HackerApiSettings");
         }
 
-        if (settings.Paths.TryGetValue("Item", out string? itemPath) && !string.IsNullOrEmpty(itemPath))
+        if (!settings.Paths.TryGetValue("Item", out string? itemPath) && !string.IsNullOrEmpty(itemPath))
         {
             throw new InvalidOperationException("Item path not found in HackerApiSettings");
         }

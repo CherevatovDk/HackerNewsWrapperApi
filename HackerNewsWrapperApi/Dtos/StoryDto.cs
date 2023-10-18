@@ -1,8 +1,9 @@
+using System.Collections;
 using Newtonsoft.Json;
 
 namespace HackerNewsWrapperApi.Dtos;
 
-public class StoryDto
+public class StoryDto 
 {
     [JsonProperty("by")] 
     public string? By { get; set; }
@@ -36,4 +37,6 @@ public class StoryDto
     
     [JsonProperty("commentCount")] 
     public int CommentCount { get; set; }
+
+   
 }

@@ -7,18 +7,19 @@ namespace HackerNewsWrapperApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StoriesController:ControllerBase
+public class StoriesController : ControllerBase
 {
-    private readonly IHackerHttpService _hackerHttpService;
+    private readonly IDetailsHttpService _detailsHttpService;
 
-    public StoriesController(IHackerHttpService hackerHttpService)
+    public StoriesController(IDetailsHttpService detailsHttpService)
     {
-        _hackerHttpService = hackerHttpService;
+        _detailsHttpService = detailsHttpService;
     }
 
     [HttpGet("best-stories")]
-    public async Task<ActionResult<List<StoryDto>>> BestStoriesAsync(int count)
+    public async Task<ActionResult<StoryDto>> BestStoriesAsync(int count)
     {
-        return Ok();
+        var getDetails = await _detailsHttpService.GetStoryDetailsAsync();
+        return Ok(getDetails);
     }
 }
