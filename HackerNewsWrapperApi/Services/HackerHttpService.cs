@@ -1,3 +1,4 @@
+using System.Text;
 using HackerNewsWrapperApi.Dtos;
 using HackerNewsWrapperApi.Interfaces;
 using HackerNewsWrapperApi.Options;
