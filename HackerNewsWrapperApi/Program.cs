@@ -21,7 +21,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
     
     
 });
-builder.Services.AddScoped<IDetailsHttpService, DetailsHttpService>();
+builder.Services.AddScoped<IDetailsHttpService, DetailsService>();
 builder.Services.AddScoped< HackerHttpService>();
 
 
