@@ -2,7 +2,7 @@ using HackerNewsWrapperApi.Dtos;
 
 namespace HackerNewsWrapperApi.Interfaces;
 
-public interface IDetailsHttpService
+public interface IDetailsService
 {
     public Task<List<StoryDto>> GetStoryDetailsAsync();
 }

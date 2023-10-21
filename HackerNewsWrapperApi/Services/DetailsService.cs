@@ -1,10 +1,13 @@
 using HackerNewsWrapperApi.Dtos;
 using HackerNewsWrapperApi.Interfaces;
+using HackerNewsWrapperApi.Options;
+
 namespace HackerNewsWrapperApi.Services;
 
-public class DetailsService : IDetailsHttpService
+public class DetailsService : IDetailsService
 {
     private readonly HackerHttpService _hackerHttpService;
+   
 
     public DetailsService(HackerHttpService hackerHttpService)
     {
@@ -14,10 +17,6 @@ public class DetailsService : IDetailsHttpService
     public async Task<List<StoryDto>> GetStoryDetailsAsync()
     {
         var ids = await _hackerHttpService.StoryIdsAsync();
-        var details = new List<StoryDto>();
-        var tasks = ids.Select(item => _hackerHttpService.DetailsStoryAsync(item));
-        var results = await Task.WhenAll(tasks);
-        details.AddRange(results);
-        return details;
+        return await ids.SelectAsync(async item =>await _hackerHttpService.DetailsStoryAsync(item));;
     }
 }
