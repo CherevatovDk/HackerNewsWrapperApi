@@ -15,7 +15,14 @@ public class DetailsService : IDetailsService
 
     public async Task<List<StoryDto>> GetStoryDetailsAsync()
     {
+        var result = new List<StoryDto>();
         var ids = await _hackerHttpService.StoryIdsAsync();
-        return await ids.SelectAsync(async item => await _hackerHttpService.DetailsStoryAsync(item));
+        foreach (var item in ids)
+        {
+            var s = await _hackerHttpService.DetailsStoryAsync(item);
+            result.Add(s);
+        }
+
+        return result;
     }
 }
