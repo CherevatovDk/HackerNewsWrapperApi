@@ -1,13 +1,11 @@
-using System.Text;
 using HackerNewsWrapperApi.Dtos;
-using HackerNewsWrapperApi.Interfaces;
 using HackerNewsWrapperApi.Options;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 namespace HackerNewsWrapperApi.Services;
 
-public class HackerHttpService : IHackerHttpService
+public class HackerHttpService
 {
     private readonly HttpClient _httpClient;
     private readonly IMemoryCache _cache;
@@ -20,7 +18,7 @@ public class HackerHttpService : IHackerHttpService
         _hackerApiSettings = hackerApiSettings.Value;
     }
 
-    public async Task<List<int>> GetStoryIdsAsync()
+    public async Task<List<int>> StoryIdsAsync()
     {
         if (_cache.TryGetValue<List<int>>(Constans.BestIds, out var value))
         {
@@ -30,5 +28,17 @@ public class HackerHttpService : IHackerHttpService
         var response = await _httpClient.GetFromJsonAsync<List<int>>(_hackerApiSettings.GetIdsUrl());
         _cache.Set(Constans.BestIds, response, TimeSpan.FromMinutes(5));
         return response ?? new List<int>();
+    }
+
+    public async Task<StoryDto> DetailsStoryAsync(int itemId)
+    {
+        if (_cache.TryGetValue<StoryDto>(Constans.BestIds, out var value))
+        {
+            return value ?? new StoryDto();
+        }
+
+        var response = await _httpClient.GetFromJsonAsync<StoryDto>(_hackerApiSettings.GetItemUrl(itemId));
+        _cache.Set(Constans.BestIds, response, TimeSpan.FromMinutes(5));
+        return response ?? new StoryDto();
     }
 }

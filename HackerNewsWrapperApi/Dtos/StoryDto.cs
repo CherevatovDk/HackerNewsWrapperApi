@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace HackerNewsWrapperApi.Dtos;
 
-public class StoryDto
+public class StoryDto 
 {
     [JsonProperty("by")] 
     public string? By { get; set; }
