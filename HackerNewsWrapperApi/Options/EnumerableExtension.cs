@@ -4,10 +4,16 @@ namespace HackerNewsWrapperApi.Options;
 
 public static class EnumerableExtension
 {
-    public static async Task<List<TResult>> SelectAsync<TSource, TResult>(this IEnumerable<TSource> source,
+    public static async Task<List<TResult>> SelectAsync<TSource, TResult>(this IEnumerable<TSource> sources,
         Func<TSource, Task<TResult>> selector)
     {
-        var tasks = await Task.WhenAll(source.Select(s => selector(s)));
-        return  tasks.Where(result => result != null).ToList();;
+        var results = new List<TResult>();
+        foreach (var item in sources)
+        {
+            TResult result = await selector(item);
+            results.Add(result);
+        }
+
+        return results;
     }
 }

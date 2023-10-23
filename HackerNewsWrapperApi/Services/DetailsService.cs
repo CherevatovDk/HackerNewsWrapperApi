@@ -7,7 +7,6 @@ namespace HackerNewsWrapperApi.Services;
 public class DetailsService : IDetailsService
 {
     private readonly HackerHttpService _hackerHttpService;
-   
 
     public DetailsService(HackerHttpService hackerHttpService)
     {
@@ -17,6 +16,6 @@ public class DetailsService : IDetailsService
     public async Task<List<StoryDto>> GetStoryDetailsAsync()
     {
         var ids = await _hackerHttpService.StoryIdsAsync();
-        return await ids.SelectAsync(async item =>await _hackerHttpService.DetailsStoryAsync(item));;
+        return await ids.SelectAsync(async item => await _hackerHttpService.DetailsStoryAsync(item));
     }
 }
