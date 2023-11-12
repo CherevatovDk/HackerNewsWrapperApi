@@ -19,7 +19,8 @@ public class StoriesController : ControllerBase
     [HttpGet("best-stories")]
     public async Task<ActionResult<StoryDto>> BestStoriesAsync(int count)
     {
-        var getDetails = await _detailsService.GetStoryDetailsAsync();
+        var getDetails = await _detailsService.GetSortedStoryAsync(count);
         return Ok(getDetails);
     }
+    
 }

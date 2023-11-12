@@ -32,13 +32,13 @@ public class HackerHttpService
 
     public async Task<StoryDto> DetailsStoryAsync(int itemId)
     {
-        if (_cache.TryGetValue<StoryDto>(Constans.BestIds, out var value))
+        if (_cache.TryGetValue<StoryDto>(itemId, out var value))
         {
             return value ?? new StoryDto();
         }
 
         var response = await _httpClient.GetFromJsonAsync<StoryDto>(_hackerApiSettings.GetItemUrl(itemId));
-        _cache.Set(Constans.BestIds, response, TimeSpan.FromMinutes(5));
+        _cache.Set(itemId, response, TimeSpan.FromMinutes(5));
         return response ?? new StoryDto();
     }
 }
