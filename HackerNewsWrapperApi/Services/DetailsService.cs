@@ -1,6 +1,5 @@
 using HackerNewsWrapperApi.Dtos;
 using HackerNewsWrapperApi.Interfaces;
-using HackerNewsWrapperApi.Options;
 
 namespace HackerNewsWrapperApi.Services;
 
