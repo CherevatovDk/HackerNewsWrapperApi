@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace HackerNewsWrapperApi.Dtos;
+namespace HackerNewsWrapperApi.Models.Dtos;
 
 public class StoryDto 
 {

@@ -6,12 +6,12 @@ public static class Helper
     {
         if (settings == null || string.IsNullOrEmpty(settings.Url) || settings.Paths == null)
         {
-            return "Invalid HackerApiSettings";
+            throw new Exception("Invalid HackerApiSettings");
         }
 
         if (!settings.Paths.TryGetValue("Ids", out string? idsPath) && !string.IsNullOrEmpty(idsPath))
         {
-            return "Ids path not found in HackerApiSettings";
+            throw new Exception("Ids path not found in HackerApiSettings");
         }
 
         return $"{settings.Url}{idsPath}";
@@ -21,12 +21,12 @@ public static class Helper
     {
         if (settings == null || string.IsNullOrEmpty(settings.Url) || settings.Paths == null)
         {
-            return "Invalid HackerApiSettings";
+            throw new Exception("Invalid HackerApiSettings");
         }
 
         if (!settings.Paths.TryGetValue("Item", out string? itemPath) && !string.IsNullOrEmpty(itemPath))
         {
-            return "Item path not found in HackerApiSettings";
+            throw new Exception( "Item path not found in HackerApiSettings");
         }
 
         return $"{settings.Url}{itemPath}{itemId}.json";

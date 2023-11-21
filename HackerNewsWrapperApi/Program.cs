@@ -11,7 +11,6 @@ new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
-builder.Services.AddCustomHttpClient();
 builder.Services.ConfigureSerilogLogging(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,6 +18,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IDetailsService, DetailsService>();
 builder.Services.AddControllers(options => options.Filters.Add<ErrorHandlingFilterAttribute>());
 builder.Services.Configure<HackerApiSettings>(builder.Configuration.GetSection("HackerApi"));
+builder.Services.AddMyHttpClient<HackerHttpService>("HackerApi:Url");
 
 
 var app = builder.Build();

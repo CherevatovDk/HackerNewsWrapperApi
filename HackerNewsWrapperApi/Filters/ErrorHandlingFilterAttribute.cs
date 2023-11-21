@@ -16,21 +16,28 @@ namespace HackerNewsWrapperApi.Filters
         public override void OnException(ExceptionContext context)
         {
             IActionResult? result;
+            string? detail = null;
             switch (context.Exception)
             {
+                case CustomException customException:
+                    result = new BadRequestObjectResult(new ProblemDetails
+                    {
+                        Title = "Bad Request", Detail = customException.Message,
+                    });
+                    break;
                 case ArgumentNullException argumentNullException:
                     result = new BadRequestObjectResult(new ProblemDetails
                     {
-                        Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                        Type = Constans.BadRequestType,
                         Title = "Bad Request",
                         Status = (int)HttpStatusCode.BadRequest,
-                        Detail = "Invalid request parameters",
+                        Detail = detail,
                     });
                     break;
                 case InvalidOperationException invalidOperationException:
                     result = new BadRequestObjectResult(new ProblemDetails
                     {
-                        Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                        Type = Constans.BadRequestType,
                         Title = "Bad Request",
                         Status = (int)HttpStatusCode.BadRequest,
                         Detail = "Invalid operation",
@@ -39,7 +46,7 @@ namespace HackerNewsWrapperApi.Filters
                 case HttpRequestException httpRequestException:
                     result = new ObjectResult(new ProblemDetails
                     {
-                        Type = "https://tools.ietf.org/html/rfc7231#section-6.6.4",
+                        Type = Constans.ServiceUnavailableType,
                         Title = "Service Unavailable",
                         Status = StatusCodes.Status503ServiceUnavailable,
                         Detail = "A network error occurred.",
@@ -48,7 +55,7 @@ namespace HackerNewsWrapperApi.Filters
                 default:
                     result = new ObjectResult(new ProblemDetails
                     {
-                        Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+                        Type = Constans.InternalServerErrorType,
                         Title = "An error occurred while processing your request.",
                         Status = (int)HttpStatusCode.InternalServerError,
                     });
