@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
+using HackerNewsWrapperApi.Extensions;
 
 namespace HackerNewsWrapperApi.Filters
 {

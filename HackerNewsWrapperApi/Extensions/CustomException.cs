@@ -1,3 +1,5 @@
+namespace HackerNewsWrapperApi.Extensions;
+
 public class CustomException : Exception
 {
     public CustomException() : base()
