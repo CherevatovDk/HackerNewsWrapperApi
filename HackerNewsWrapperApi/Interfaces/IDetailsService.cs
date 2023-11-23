@@ -1,4 +1,4 @@
-using HackerNewsWrapperApi.Dtos;
+using HackerNewsWrapperApi.Models.Dtos;
 
 namespace HackerNewsWrapperApi.Interfaces;
 

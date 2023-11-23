@@ -1,41 +1,34 @@
+using HackerNewsWrapperApi.Extensions;
+using HackerNewsWrapperApi.Filters;
 using HackerNewsWrapperApi.Interfaces;
 using HackerNewsWrapperApi.Options;
 using HackerNewsWrapperApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json")
     .Build();
-builder.Services.Configure<HackerApiSettings>(builder.Configuration.GetSection("HackerApi"));
 
-// Add services to the container.
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.ConfigureSerilogLogging(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
-builder.Services.AddHttpClient("ApiClient", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration.GetSection("HackerApi:Url").Value!);
-    
-    
-});
 builder.Services.AddScoped<IDetailsService, DetailsService>();
-builder.Services.AddScoped< HackerHttpService>();
-
-
+builder.Services.AddControllers(options => options.Filters.Add<ErrorHandlingFilterAttribute>());
+builder.Services.Configure<HackerApiSettings>(builder.Configuration.GetSection("HackerApi"));
+builder.Services.AddMyHttpClient<HackerHttpService>("HackerApi:Url");
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseExceptionHandler("/Error");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

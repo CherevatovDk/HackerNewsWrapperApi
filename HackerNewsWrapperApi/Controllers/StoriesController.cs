@@ -1,6 +1,6 @@
-using HackerNewsWrapperApi.Dtos;
+using HackerNewsWrapperApi.Filters;
 using HackerNewsWrapperApi.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
+using HackerNewsWrapperApi.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackerNewsWrapperApi.Controllers;
@@ -17,10 +17,12 @@ public class StoriesController : ControllerBase
     }
 
     [HttpGet("best-stories")]
-    public async Task<ActionResult<StoryDto>> BestStoriesAsync(int count)
+    public async Task<ActionResult<StoryDto>> BestStoriesAsync(int count, [FromQuery] PaginationFilter filter)
     {
+        var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
         var getDetails = await _detailsService.GetSortedStoryAsync(count);
-        return Ok(getDetails);
+        var query = getDetails.AsQueryable();
+        var items = query.Skip((validFilter.PageNumber - 1) * validFilter.PageSize).Take(validFilter.PageSize).ToList();
+        return Ok(items);
     }
-    
 }
